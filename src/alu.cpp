@@ -1,11 +1,53 @@
 #include "alu.h"
 
 
-Alu::Alu(){
+Alu::Alu()
+{
     Control = 0;
 }
 
-int Alu::send_to(int in1, int in2, int control, int *output)
+Alu::Alu(int *input1, int *input2, int *output, int *opcode_alu)
+{
+    in1_p = input1;
+    in2_p = input2;
+    out_p = output;
+    opalu_p = opcode_alu;
+}
+
+void Alu::update()
+{
+    switch (*opalu_p)
+    {
+        case 0b0000:
+            *out_p = AND(*in1_p, *in2_p);
+            break;
+        case 0b0001:
+            *out_p = OR(*in1_p, *in2_p);
+            break;
+        case 0b0010:
+            *out_p = add(*in1_p, *in2_p);
+            break;
+        case 0b0011:
+            *out_p = substract(*in1_p, *in2_p);
+            break;
+        case 0b0100:
+            *out_p = multiply(*in1_p, *in2_p);
+            break;
+        case 0b0101:
+            *out_p = slt(*in1_p, *in2_p);
+            break;
+        case 0b0110:
+            *out_p = NOR(*in1_p, *in2_p);
+            break;
+    
+        default:
+            *out_p = 0;
+            break;
+    }
+}
+
+
+int Alu::perform(int in1, int in2, int control, int *output)
 {
     switch (control)
     {
@@ -44,10 +86,10 @@ int Alu::send_to(int in1, int in2, int control, int *output)
 }
 
 //Override of function when exterrior control signal is not passed
-int Alu::send_to(int in1, int in2, int *output)
+int Alu::perform(int in1, int in2, int *output)
 {
     int result;
-    result = send_to(in1, in2, Control, output);
+    result = perform(in1, in2, Control, output);
     return result;
 }
 
