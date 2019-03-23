@@ -10,12 +10,16 @@ class Alu
     // 0b0100 = multiply
     // 0b0101 = set-on-less-than
     // 0b0110 = NOR
+    // 0b0111 = sll shift left logical
+    // 0b1000 = srl shift right logical
     private:
         //pointers to exterior signals
         int *in1_p;
         int *in2_p;
         int *out_p;
         int *opalu_p;
+        bool *is_not_zero;
+        
         //Methods and available computation:
         int AND(int a, int b);
         int OR(int a, int b);
@@ -24,16 +28,23 @@ class Alu
         int multiply(int a, int b);
         int slt(int a, int b);
         int NOR(int a, int b);
+        int sll(int a, int b);
+        int srl(int a, int b);
     public:
         Alu();
         //Initialisation with connection of signals:
-        Alu(int *input1, int *input2, int *output, int *opcode_alu);
-        int Control = 0b0000;
-        
+        Alu(int *input1, int *input2, int *output, 
+            int *opcode_alu);
+        //additional signal, tells if result is not 0
+        Alu(int *input1, int *input2, int *output, 
+            int *opcode_alu, bool *is_not_zero_sig);
+
         //updates output of Alu:
         void update();
 
 
+        //TODO redundant
+        int Control = 0b0000;
         int Output = 0;
         //updates ALU output:
         int perform(int in1, int in2, int control, int *output=nullptr);

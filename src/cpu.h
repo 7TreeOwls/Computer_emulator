@@ -1,30 +1,44 @@
 #include "ram.h"
 #include "alu.h"
+#include "control_signals.h"
 
 class Cpu
 {
 private:
     //pointer to RAM
     Ram *pRAM;
+
     //program counter signals and its ALU
     Alu PC_ALU;
-    int pc = 0;
+    bool pc_control; //signal for PC mux
     int pc_next = 0;
     int pc_increment = 1; //constant
     int pc_alu_opcode_const = ALU_ADD; //constant
-    //Control signals:
-    bool RegDst;
-    bool Branch;
-    bool MemRead;
-    bool MemtoReg;
-    int ALUop;
-    bool MemWrite;
-    bool ALUSrc;
-    bool RegWrite;
 
-    //Signals for execute:
+    //Control signals:
+    Control_signals control;
+    
+    //Registers:
+    unsigned int pc = 0;
+    unsigned int instruction;
+    int accumulator_alu; //alu_out
+
+    //signals between decode() and execute()
+    int constant;
+    int write_address;
     int read_data1;
     int read_data2;
+
+    //execute (main) ALU and its signals:
+    Alu ALU;
+    int in_alu1;
+    int in_alu2;
+    int out_alu;
+    bool is_not_zero_alu;
+
+
+    
+
 
 public:
     Cpu();
@@ -36,7 +50,12 @@ public:
     
     //instruction fetch
     void instruction_fetch();
+    //decode of instruction
     void decode();
-    void update_control_signals(int opcode);
+    //execute instruction
+    void execute();
+    //MEM - memory write
+    void mem_access();
+
 
 };

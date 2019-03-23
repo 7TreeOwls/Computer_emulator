@@ -13,7 +13,7 @@
 //     I-type instructions:
 
 #define CPU_LW 0x10 //(0b0001 0000) = lw <write_register> <offset>(<read_register>)/<constant>
-#define CPU_SW 0x20 //(0b0010 0000) = sw <read_register> <offset>(<write_register>)
+#define CPU_SW 0x11//(0b0001 0001) = sw <read_register> <offset>(<write_register>)
 
 #define CPU_ANDI 0x30 //(0b0011 0000) = andi <write_register> <read_register1> <constant>
 #define CPU_ORI 0x31 //(0b0011 0001) = ori <write_register> <read_register1> <constant>
@@ -22,13 +22,13 @@
 #define CPU_MULTI 0x34 //(0b0011 0100) = multi <write_register> <read_register1> <constant>
 #define CPU_SLTI 0x35 //(0b0011 0101) = slti <write_register> <read_register1> <constant>
 #define CPU_NORI 0x36 //(0b0011 0110) = nori <write_register> <read_register1> <constant>
-
-#define CPU_SLL 0x40 //(0b0100 0000) = sll <write_register> <read_register1> <constant> //shift left
-#define CPU_SRL 0x41 //(0b0100 0001) = srl <write_register> <read_register1> <constant> //shift right
+#define CPU_SLL 0x37 //(0b0011 0111) = sll <write_register> <read_register1> <constant> //shift left
+#define CPU_SRL 0x38 //(0b0011 1000) = srl <write_register> <read_register1> <constant> //shift right
 
 #define CPU_J 0x50 //(0b0101 0000) = j <label> //jump to label
 #define CPU_BNE 0x51 //(0b0101 0000) = bne <read_register1> <read_register2> <label> //jump if not equal
 
+#define CPU_END 0xFF //(0b1111 1111) = ends the operation of cpu, resets the pc
 
 // ALU Opcodes:
 #define ALU_AND 0b0000 //= AND
@@ -38,3 +38,5 @@
 #define ALU_MULT 0b0100 //= multiply
 #define ALU_SLT 0b0101 //= set-on-less-than
 #define ALU_NOR 0b0110 //= NOR
+#define ALU_SLL 0b0111 //=sll shift left logical
+#define ALU_SRL 0b1000 //=srl shift right logical

@@ -6,12 +6,23 @@ Alu::Alu()
     Control = 0;
 }
 
-Alu::Alu(int *input1, int *input2, int *output, int *opcode_alu)
+Alu::Alu(int *input1, int *input2, int *output, 
+        int *opcode_alu)
 {
     in1_p = input1;
     in2_p = input2;
     out_p = output;
     opalu_p = opcode_alu;
+}
+
+Alu::Alu(int *input1, int *input2, int *output, 
+        int *opcode_alu, int *is_not_zero_sig)
+{
+    in1_p = input1;
+    in2_p = input2;
+    out_p = output;
+    opalu_p = opcode_alu;
+    is_not_zero = is_not_zero_sig;
 }
 
 void Alu::update()
@@ -39,11 +50,25 @@ void Alu::update()
         case 0b0110:
             *out_p = NOR(*in1_p, *in2_p);
             break;
+        case 0b0111:
+            *out_p = sll(*in1_p, *in2_p);
+            break;
+        case 0b1000:
+            *out_p = srl(*in1_p, *in2_p);
+            break;
     
         default:
             *out_p = 0;
             break;
     }
+    if(*out_p != 0)
+    {
+        *is_not_zero = 1;
+    }else
+    {
+        *is_not_zero = 0;
+    }
+    
 }
 
 
@@ -134,5 +159,15 @@ int Alu::slt(int a, int b)
 int Alu::NOR(int a, int b)
 {
     return (~(a | b));
+}
+
+int Alu::sll(int a, int b)
+{
+    return (a << b);
+}
+
+int Alu::srl(int a, int b)
+{
+    return(a >> b);
 }
 
