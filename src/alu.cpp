@@ -1,4 +1,5 @@
 #include "alu.h"
+#include <iostream>
 
 
 Alu::Alu()
@@ -13,10 +14,11 @@ Alu::Alu(int *input1, int *input2, int *output,
     in2_p = input2;
     out_p = output;
     opalu_p = opcode_alu;
+    is_not_zero = &is_not_zero_dummy;
 }
 
 Alu::Alu(int *input1, int *input2, int *output, 
-        int *opcode_alu, int *is_not_zero_sig)
+        int *opcode_alu, bool *is_not_zero_sig)
 {
     in1_p = input1;
     in2_p = input2;

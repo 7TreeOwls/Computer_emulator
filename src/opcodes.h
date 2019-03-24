@@ -1,4 +1,4 @@
-
+#pragma once
 // CPU Opcodes and assembly instructions:
 //     R-type instructions:
 
@@ -28,7 +28,7 @@
 #define CPU_J 0x50 //(0b0101 0000) = j <label> //jump to label
 #define CPU_BNE 0x51 //(0b0101 0000) = bne <read_register1> <read_register2> <label> //jump if not equal
 
-#define CPU_END 0xFF //(0b1111 1111) = ends the operation of cpu, resets the pc
+#define CPU_END 0x0F //(0b1111 1111) = ends the operation of cpu, resets the pc
 
 // ALU Opcodes:
 #define ALU_AND 0b0000 //= AND

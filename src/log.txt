@@ -1,0 +1,10 @@
+Memory log:
+
+write 32770079 to 4
+read 4 from 1
+read 32770079 from 4
+write 32770079 to 2
+read 0 from 0
+read 0 from 79
+write 4 to 1
+write 79 to 77

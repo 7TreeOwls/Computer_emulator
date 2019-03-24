@@ -1,6 +1,10 @@
+#pragma once
+
 #include "ram.h"
 #include "alu.h"
 #include "control_signals.h"
+
+
 
 class Cpu
 {
@@ -19,9 +23,9 @@ private:
     Control_signals control;
     
     //Registers:
-    unsigned int pc = 0;
-    unsigned int instruction;
-    int accumulator_alu; //alu_out
+    int pc = 0;
+    int instruction;
+    int accumulator_alu; //main ALU output
 
     //signals between decode() and execute()
     int constant;
@@ -33,21 +37,9 @@ private:
     Alu ALU;
     int in_alu1;
     int in_alu2;
-    int out_alu;
     bool is_not_zero_alu;
 
-
-    
-
-
-public:
-    Cpu();
-    //Initialisation with connection to RAM
-    Cpu(Ram *pointerRAM);
-    Cpu(int );
-    //program counter
-    int pc;
-    
+    //CPU operation:
     //instruction fetch
     void instruction_fetch();
     //decode of instruction
@@ -58,4 +50,14 @@ public:
     void mem_access();
 
 
+public:
+    Cpu();
+    //Initialisation with connection to RAM
+    Cpu(Ram *pointerRAM);
+
+    //one operation of CPU:
+    void update();
+
+    //CPU runs until all instructions performed
+    void run();
 };

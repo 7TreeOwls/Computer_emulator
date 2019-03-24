@@ -31,5 +31,8 @@ void Control_signals::updateSignals(int opcode)
         //if equal, result is 0x00, signal is_not_zero is high
         ALU_opcode = ALU_SUB; 
         store = 0;
+    }else if(opcode == 0x0F)
+    {
+        stop = true;
     }
 }

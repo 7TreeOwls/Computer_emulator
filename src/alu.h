@@ -1,3 +1,5 @@
+#pragma once
+
 #include "opcodes.h"
 
 class Alu
@@ -19,6 +21,8 @@ class Alu
         int *out_p;
         int *opalu_p;
         bool *is_not_zero;
+        //dummy when signal is not provided
+        bool is_not_zero_dummy;
         
         //Methods and available computation:
         int AND(int a, int b);

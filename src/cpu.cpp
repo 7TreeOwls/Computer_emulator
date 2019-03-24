@@ -1,4 +1,5 @@
 #include "cpu.h"
+// #include <iostream>
 
 
 Cpu::Cpu(){}
@@ -25,11 +26,10 @@ void Cpu::instruction_fetch()
 
 void Cpu::decode()
 {
-    //opcode is first 8bits
-    instruction = pRAM->read(IR_ADDRESS);
     //opcode is first 8 bits - 0xXX 00 00 00 where XX is the opcode
     int opcode = instruction >> 24;
     control.updateSignals(opcode);
+    // cout << "opcode: " << std::hex << opcode << "\n";
 
     //Division of instruction
     //0x00 XX 00 00 - XX is write_address
@@ -43,6 +43,7 @@ void Cpu::decode()
     read_data2 = pRAM->read(read_address2);
     //0x00 00 00 XX - XX is constant/offset
     constant = instruction & 0x000000FF;
+    // cout << "constant: " << std::hex << constant << "\n";
 }
 
 void Cpu::execute()
@@ -50,6 +51,7 @@ void Cpu::execute()
     //2 MUXES before ALU:
     in_alu1 = control.store ? write_address : read_data1;
     in_alu2 = control.ALU_constant ? constant : read_data2;
+    // cout << "in_alu2: " << std::hex << in_alu2 << "\n";
 
     ALU.update();
     //AND gate before MUX for setting the next PC value
@@ -64,7 +66,7 @@ void Cpu::mem_access()
     pRAM->write(PC_ADDRESS, pc_next);
     int address__to_write;
     int value_to_write;
-
+    // cout << "accumulator_alu: " << std::hex << accumulator_alu << "\n";
     if(control.store == false)//all instruction except sw - store word
     {
         address__to_write = write_address;
@@ -87,8 +89,10 @@ void Cpu::update()
 
 void Cpu::run()
 {
+    control.stop = false;
     while(control.stop == false)
     {
         update();
     }
+    pRAM->write(PC_ADDRESS, FIRST_INSTR);
 }

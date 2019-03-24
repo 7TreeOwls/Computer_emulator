@@ -1,4 +1,4 @@
-
+#pragma once
 
 //Contians control signals for CPU
 class Control_signals
