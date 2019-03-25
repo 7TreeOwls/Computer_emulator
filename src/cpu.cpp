@@ -4,9 +4,9 @@
 
 Cpu::Cpu(){}
 
-Cpu::Cpu(Ram *pointerRAM)
+Cpu::Cpu(Bus *pointerBUS)
 {
-    pRAM = pointerRAM;
+    pBUS = pointerBUS;
     //signal connection to ALUs:
     PC_ALU = Alu(&pc, &pc_increment, &pc_next, &pc_alu_opcode_const);
     ALU = Alu(&in_alu1, &in_alu2, &accumulator_alu, &control.ALU_opcode, &is_not_zero_alu);
@@ -17,9 +17,9 @@ void Cpu::instruction_fetch()
 {
     //TODO add incrementation of pc
     //fetching of instruction from PC to Instruction register
-    pc = pRAM->read(PC_ADDRESS);
-    instruction = pRAM->read(pc);
-    pRAM->write(IR_ADDRESS, instruction);
+    pc = pBUS->read(PC_ADDRESS);
+    instruction = pBUS->read(pc);
+    pBUS->write(IR_ADDRESS, instruction);
     //Incrementation of Program Counter signal
     PC_ALU.update();
 }
@@ -39,8 +39,8 @@ void Cpu::decode()
     //0x00 00 00 XX - XX is read_address2
     int read_address2 = instruction & 0x000000FF;
 
-    read_data1 = pRAM->read(read_address1);
-    read_data2 = pRAM->read(read_address2);
+    read_data1 = pBUS->read(read_address1);
+    read_data2 = pBUS->read(read_address2);
     //0x00 00 00 XX - XX is constant/offset
     constant = instruction & 0x000000FF;
     // cout << "constant: " << std::hex << constant << "\n";
@@ -57,13 +57,13 @@ void Cpu::execute()
     //AND gate before MUX for setting the next PC value
     pc_control = control.branch && is_not_zero_alu;
     //MUX for setting the next PC value
-    pc_next = pc_control ? write_address : pc;
+    pc = pc_control ? write_address : pc_next;
 }
 
 void Cpu::mem_access()
 {
     //set the new PC
-    pRAM->write(PC_ADDRESS, pc_next);
+    pBUS->write(PC_ADDRESS, pc);
     int address__to_write;
     int value_to_write;
     // cout << "accumulator_alu: " << std::hex << accumulator_alu << "\n";
@@ -76,7 +76,7 @@ void Cpu::mem_access()
         address__to_write = accumulator_alu;
         value_to_write = read_data1;
     }
-    pRAM->write(address__to_write, value_to_write);
+    pBUS->write(address__to_write, value_to_write);
 }
 
 void Cpu::update()
@@ -94,5 +94,5 @@ void Cpu::run()
     {
         update();
     }
-    pRAM->write(PC_ADDRESS, FIRST_INSTR);
+    pBUS->write(PC_ADDRESS, FIRST_INSTR);
 }

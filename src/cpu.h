@@ -1,16 +1,16 @@
 #pragma once
 
-#include "ram.h"
 #include "alu.h"
 #include "control_signals.h"
+#include "bus.h"
 
 
 
 class Cpu
 {
 private:
-    //pointer to RAM
-    Ram *pRAM;
+    //pointer to BUS
+    Bus *pBUS;
 
     //program counter signals and its ALU
     Alu PC_ALU;
@@ -53,7 +53,7 @@ private:
 public:
     Cpu();
     //Initialisation with connection to RAM
-    Cpu(Ram *pointerRAM);
+    Cpu(Bus *pointerBUS);
 
     //one operation of CPU:
     void update();

@@ -1,9 +1,16 @@
 #include "control_signals.h"
 #include "opcodes.h"
 
+#include <iostream>
+
 void Control_signals::updateSignals(int opcode)
 {
-    if((opcode & 0xF0) == 0x00) //R-type instruction
+    
+    if(opcode == 0x0F) //stop the computer because end of instructions
+    {
+        stop = true;
+        std::cout << "stop inside control: " << stop << "\n";
+    }else if((opcode & 0xF0) == 0x00) //R-type instruction
     {
         ALU_constant = 0;
         branch = 0;
@@ -31,8 +38,5 @@ void Control_signals::updateSignals(int opcode)
         //if equal, result is 0x00, signal is_not_zero is high
         ALU_opcode = ALU_SUB; 
         store = 0;
-    }else if(opcode == 0x0F)
-    {
-        stop = true;
     }
 }
