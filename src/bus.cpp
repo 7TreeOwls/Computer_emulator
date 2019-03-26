@@ -22,7 +22,7 @@ int Bus::read(int address)
         data_bus = pRAM->read(address_bus);
     }else if(address_bus == pIO->address)
     {
-        data_bus = pIO->read_new;
+        data_bus = pIO->read_new();
     }
     return data_bus;
 }

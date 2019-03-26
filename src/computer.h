@@ -9,7 +9,7 @@ class Computer
 {
 private:
     Ram RAM;
-    InputOutput
+    InputOutput IO;
     Bus BUS;
     Cpu CPU;
 public:
