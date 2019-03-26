@@ -3,8 +3,8 @@
 
 Computer::Computer()
 {
-    //connection of RAM and CPU via BUS
-    BUS = Bus(&RAM);
+    //connection of RAM, IO and CPU via BUS
+    BUS = Bus(&RAM, &IO);
     CPU = Cpu(&BUS);
 }
 
