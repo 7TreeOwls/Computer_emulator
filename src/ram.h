@@ -76,3 +76,6 @@ public:
     //write to memory
     void write(int address, int value);
 };
+
+
+

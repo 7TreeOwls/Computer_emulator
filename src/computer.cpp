@@ -5,10 +5,15 @@
 
 Computer::Computer()
 {
+<<<<<<< HEAD
     //connection of RAM, IO and CPU via BUS
 	RAM = Ram();
 	IO = InputOutput();
     BUS = Bus(&RAM, &IO);
+=======
+    //connection of RAM and CPU via BUS
+    BUS = Bus(&RAM);
+>>>>>>> parent of 0c719c1... implemented InputOutput subsystem
     CPU = Cpu(&BUS);
 }
 
