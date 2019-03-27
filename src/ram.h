@@ -3,7 +3,7 @@
 #include <fstream>
 
 #ifndef DEBUG
-#define DEBUG true
+#define DEBUG false
 #endif
 
 #define RAM_SIZE 128

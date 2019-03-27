@@ -5,21 +5,16 @@
 
 Computer::Computer()
 {
-<<<<<<< HEAD
-    //connection of RAM, IO and CPU via BUS
-	RAM = Ram();
-	IO = InputOutput();
-    BUS = Bus(&RAM, &IO);
-=======
     //connection of RAM and CPU via BUS
-    BUS = Bus(&RAM);
->>>>>>> parent of 0c719c1... implemented InputOutput subsystem
-    CPU = Cpu(&BUS);
+	RAM = new Ram();
+	IO = new InputOutput();
+    BUS = new Bus(RAM, IO);
+    CPU = new Cpu(BUS);
 }
 
 void Computer::instruction_write(int instr_number, int instruction)
 {
-	RAM.write(instr_number+FIRST_INSTR, instruction);
+	BUS->write(instr_number+FIRST_INSTR, instruction);
 }
 
 // //writes a passed set (as array) of instruciton to memory
@@ -52,10 +47,10 @@ void Computer::instruction_write(int instr_number, int instruction)
 //clocks CPU once
 void Computer::clockCPU()
 {
-    CPU.update();
+    CPU->update();
 }
 
 void Computer::run()
 {
-    CPU.run();
+    CPU->run();
 }

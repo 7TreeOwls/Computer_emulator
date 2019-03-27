@@ -6,11 +6,11 @@
 
 Control_signals::Control_signals()
 {
-	bool ALU_constant = false;
-    int ALU_opcode = ALU_AND;
-    bool branch = 0;
-    bool store = 0;
-    bool stop = false;
+	ALU_constant = false;
+    ALU_opcode = ALU_AND;
+    branch = 0;
+	store = 0;
+    stop = false;
 }
 
 void Control_signals::updateSignals(int opcode)
