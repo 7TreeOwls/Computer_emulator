@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "ram.h"
 #include "inputoutput.h"
 #include "bus.h"
@@ -13,10 +15,11 @@ private:
     Bus BUS;
     Cpu CPU;
 public:
-    Computer(){};
+    Computer();
 
     //instruction write to memory
     void instruction_write(int *instruction_set, int length_set);
+	void instruction_write(vector<int> &instruction_set);
     void clockCPU();
     void run();
 };

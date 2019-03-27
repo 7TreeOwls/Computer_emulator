@@ -2,7 +2,9 @@
 
 #include <fstream>
 
+#ifndef DEBUG
 #define DEBUG 1
+#endif
 
 #define RAM_SIZE 128
 

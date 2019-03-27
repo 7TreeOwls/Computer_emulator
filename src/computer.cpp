@@ -19,6 +19,17 @@ void Computer::instruction_write(int *instruction_set, int length_set)
     }
 }
 
+void Computer::instruction_write(vector<int> &instruction_set)
+{
+	int instr_address;
+    for(int i=0; i<(int)instruction_set.size(); i++)
+    {
+        instr_address = i+FIRST_INSTR;
+        BUS.write(instr_address, instruction_set[i]);
+    }
+}
+
+
 //clocks CPU once
 void Computer::clockCPU()
 {
