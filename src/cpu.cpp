@@ -1,5 +1,5 @@
 #include "cpu.h"
-// #include <iostream>
+#include <iostream>
 
 
 Cpu::Cpu(){}
@@ -8,7 +8,7 @@ Cpu::Cpu(Bus *pointerBUS)
 {
     pBUS = pointerBUS;
     //signal connection to ALUs:
-    PC_ALU = Alu(&pc, &pc_increment, &pc_next, &pc_alu_opcode_const);
+    PC_ALU = Alu(&pc, &pc_increment_const, &pc_next, &pc_alu_opcode_const);
     ALU = Alu(&in_alu1, &in_alu2, &accumulator_alu, &control.ALU_opcode, &is_not_zero_alu);
     
 }
@@ -57,7 +57,10 @@ void Cpu::execute()
     //AND gate before MUX for setting the next PC value
     pc_control = control.branch && is_not_zero_alu;
     //MUX for setting the next PC value
+	cout << "pc_control " << pc_control << "\n";
+	cout << "pc_next " << pc_next << "\n";
     pc = pc_control ? write_address : pc_next;
+	cout << "pc " << pc << "\n";
 }
 
 void Cpu::mem_access()
@@ -83,8 +86,12 @@ void Cpu::update()
 {
     instruction_fetch();
     decode();
-    execute();
-    mem_access();
+	if(control.stop == false)
+	{
+		execute();
+    	mem_access();
+	}
+    
 }
 
 void Cpu::run()

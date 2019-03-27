@@ -23,7 +23,7 @@ Ram::Ram()
         logfile.open("log.txt", fstream::out | fstream::trunc);
         logfile  << "Memory log:\n\n";
         logfile.close();
-
+		clock_cycle = 0;
     }
     
 }
@@ -33,9 +33,15 @@ int Ram::read(int address)
     if(DEBUG)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
-        logfile << "read " << std::hex << memory[address] 
+        logfile << clock_cycle << ": " 
+				<< "read " << std::hex << memory[address] 
                 << " from " << std::hex << address << "\n";
         logfile.close();
+
+		if(address == PC_ADDRESS)
+		{
+			clock_cycle = clock_cycle + 1;
+		}
 
     }
     return memory[address];
@@ -46,7 +52,8 @@ void Ram::write(int address, int value)
     if(DEBUG)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
-        logfile << "write " << std::hex << value 
+        logfile << clock_cycle << ": " 
+				<< "write " << std::hex << value 
                 << " to " << std::hex << address << "\n";
         logfile.close();
 

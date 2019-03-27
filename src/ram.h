@@ -3,7 +3,7 @@
 #include <fstream>
 
 #ifndef DEBUG
-#define DEBUG 1
+#define DEBUG true
 #endif
 
 #define RAM_SIZE 128
@@ -24,8 +24,11 @@ using namespace std;
 class Ram
 {
 private:
+	//used for logging
     fstream logfile;
-    
+	int clock_cycle;
+
+    //memory:
     int memory[RAM_SIZE] =
     {
         //Program counter, instruction register

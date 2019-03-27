@@ -16,7 +16,7 @@ private:
     Alu PC_ALU;
     bool pc_control; //signal for PC mux
     int pc_next = 0;
-    int pc_increment = 1; //constant
+    int pc_increment_const = 1; //constant
     int pc_alu_opcode_const = ALU_ADD; //constant
 
     //Control signals:

@@ -1,33 +1,47 @@
 #include "computer.h"
 
+#include <iostream>
+
 
 Computer::Computer()
 {
     //connection of RAM, IO and CPU via BUS
+	RAM = Ram();
+	IO = InputOutput();
     BUS = Bus(&RAM, &IO);
     CPU = Cpu(&BUS);
 }
 
-//writes a passed set (as array) of instruciton to memory
-void Computer::instruction_write(int *instruction_set, int length_set)
+void Computer::instruction_write(int instr_number, int instruction)
 {
-    int instr_address;
-    for(int i=0; i<length_set; i++)
-    {
-        instr_address = i+FIRST_INSTR;
-        BUS.write(instr_address, instruction_set[i]);
-    }
+	RAM.write(instr_number+FIRST_INSTR, instruction);
 }
 
-void Computer::instruction_write(vector<int> &instruction_set)
-{
-	int instr_address;
-    for(int i=0; i<(int)instruction_set.size(); i++)
-    {
-        instr_address = i+FIRST_INSTR;
-        BUS.write(instr_address, instruction_set[i]);
-    }
-}
+// //writes a passed set (as array) of instruciton to memory
+// void Computer::instruction_write(int *instruction_set, int length_set)
+// {
+//     int instr_address;
+// 	int instr;
+//     for(int i=0; i<length_set; i++)
+//     {
+//         instr_address = i+FIRST_INSTR;
+// 		instr = instruction_set[i];
+//         BUS.write(instr_address, instr);
+//     }
+// 	cout << "wrote instructions.\n";
+// }
+
+// void Computer::instruction_write(vector<int> &instruction_set, int length_set)
+// {
+// 	int instr_address;
+// 	int instr;
+//     for(unsigned int i=0; i<instruction_set.size(); i++)
+//     {
+//         instr_address = i+FIRST_INSTR;
+// 		instr = instruction_set[i];
+//         BUS.write(instr_address, instr);
+//     }
+// }
 
 
 //clocks CPU once
