@@ -33,15 +33,11 @@ int Ram::read(int address)
     if(DEBUG)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
+		showbase(logfile);
         logfile << clock_cycle << ": " 
 				<< "read " << std::hex << memory[address] 
                 << " from " << std::hex << address << "\n";
         logfile.close();
-
-		if(address == PC_ADDRESS)
-		{
-			clock_cycle = clock_cycle + 1;
-		}
 
     }
     return memory[address];
@@ -52,11 +48,17 @@ void Ram::write(int address, int value)
     if(DEBUG)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
+		showbase(logfile);
         logfile << clock_cycle << ": " 
 				<< "write " << std::hex << value 
                 << " to " << std::hex << address << "\n";
         logfile.close();
 
+		//new clock cycle will start
+		if(address == PC_ADDRESS)
+		{
+			clock_cycle = clock_cycle + 1;
+		}
     }
     memory[address] = value;
 }

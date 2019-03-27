@@ -39,7 +39,7 @@ void Alu::update()
             break;
         case 0b0010:
             *out_p = add(*in1_p, *in2_p);
-			std::cout << "added: " << *in1_p << " " << *in2_p << "\n";
+			// std::cout << "added: " << *in1_p << " " << *in2_p << "\n";
             break;
         case 0b0011:
             *out_p = substract(*in1_p, *in2_p);

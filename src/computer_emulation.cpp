@@ -22,23 +22,44 @@ int main()
 	Computer COMP;
 
 
-
+	string line;
+	unsigned int comment_startpos;
     int instr;
+
     fstream ml_file;
     ml_file.open("machinecode.txt", fstream::in);
-    ml_file >> hex;
+    // ml_file >> hex;
 
 	cout << hex;
 
+	//iterator
 	int it = 0;
 	while(ml_file.eof() == false)
 	{
-		ml_file >> instr;
+		// ml_file >> instr;
+		getline(ml_file, line);
 
-		COMP.instruction_write(it, instr);
+		//get rid of 0x at the start
+		// line.erase(0, 2);
+
+		//filter out comments
+		comment_startpos = line.find_first_of("#;", 0);
+		if(comment_startpos != string::npos)
+		{
+			line.erase(comment_startpos, string::npos);
+		}
+
+		if(!line.empty())
+		{
+			instr = stoi(line, nullptr, 16);
+			line.clear();
+
+			COMP.instruction_write(it, instr);
 
 		it++;
-		cout << instr << "\n";
+		}
+		
+		// cout << instr << "\n";
 	}
 	int instr_end = CPU_END << 24;
 	COMP.instruction_write(it, instr_end);

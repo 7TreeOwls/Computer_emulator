@@ -57,16 +57,14 @@ void Cpu::execute()
     //AND gate before MUX for setting the next PC value
     pc_control = control.branch && is_not_zero_alu;
     //MUX for setting the next PC value
-	cout << "pc_control " << pc_control << "\n";
-	cout << "pc_next " << pc_next << "\n";
+	// cout << "pc_control " << pc_control << "\n";
+	// cout << "pc_next " << pc_next << "\n";
     pc = pc_control ? write_address : pc_next;
-	cout << "pc " << pc << "\n";
+	// cout << "pc " << pc << "\n";
 }
 
 void Cpu::mem_access()
 {
-    //set the new PC
-    pBUS->write(PC_ADDRESS, pc);
     int address__to_write;
     int value_to_write;
     // cout << "accumulator_alu: " << std::hex << accumulator_alu << "\n";
@@ -79,7 +77,15 @@ void Cpu::mem_access()
         address__to_write = accumulator_alu;
         value_to_write = read_data1;
     }
-    pBUS->write(address__to_write, value_to_write);
+	// cout << "accumulator_alu " << accumulator_alu << "\n";
+	// cout << "value_to_write " << accumulator_alu << "\n";
+	if(control.branch == false) //no memory write if bne or jump instruction
+	{
+		pBUS->write(address__to_write, value_to_write);
+	}
+
+	//set the new PC
+    pBUS->write(PC_ADDRESS, pc);
 }
 
 void Cpu::update()

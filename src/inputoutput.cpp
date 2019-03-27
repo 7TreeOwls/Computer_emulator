@@ -15,7 +15,7 @@ InputOutput::InputOutput(int io_address)
 
 int InputOutput::read_new()
 {
-    cin >> val;
+    cin >> dec >> val;
     return val;
 }
 
@@ -26,5 +26,6 @@ int InputOutput::read()
 
 void InputOutput::write(int value)
 {
-    cout << val << "\n";
+    val = value;
+	cout << dec << val << "\n";
 }

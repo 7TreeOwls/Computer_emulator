@@ -12,8 +12,8 @@
 
 //     I-type instructions:
 
-#define CPU_LW 0x10 //(0b0001 0000) = lw <write_register> <offset>(<read_register>)/<constant>
-#define CPU_SW 0x11//(0b0001 0001) = sw <read_register> <offset>(<write_register>)
+#define CPU_LW 0x10 //(0b0001 0000) = lw <write_register> <offset>(<read_register>)
+#define CPU_SW 0x11 //(0b0001 0001) = sw <read_register> <offset>(<write_register>)
 
 #define CPU_ANDI 0x30 //(0b0011 0000) = andi <write_register> <read_register1> <constant>
 #define CPU_ORI 0x31 //(0b0011 0001) = ori <write_register> <read_register1> <constant>
