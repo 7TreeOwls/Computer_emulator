@@ -7,7 +7,7 @@ Computer::Computer()
 {
     //connection of RAM and CPU via BUS
 	RAM = new Ram();
-	IO = new InputOutput();
+	IO = new InputOutput(RAM_SIZE);
     BUS = new Bus(RAM, IO);
     CPU = new Cpu(BUS);
 }

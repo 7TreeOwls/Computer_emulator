@@ -3,13 +3,13 @@
 #include <string>
 #include <vector>
 
-#define DEBUG true
-
 #include "opcodes.h"
 #include "computer.h"
 
 
 using namespace std;
+
+//you can specify debug mode in "debug.h"
 
 
 int main()
@@ -49,15 +49,15 @@ int main()
 			line.erase(comment_startpos, string::npos);
 		}
 
-		if(!line.empty())
+		if(line.size() >= 8)
 		{
 			instr = stoi(line, nullptr, 16);
-			line.clear();
 
 			COMP.instruction_write(it, instr);
 
-		it++;
+			it++;
 		}
+		line.clear();
 		
 		// cout << instr << "\n";
 	}

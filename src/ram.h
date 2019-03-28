@@ -1,12 +1,13 @@
 #pragma once
 
 #include <fstream>
+#include "debug.h"
 
 #ifndef DEBUG
 #define DEBUG true
 #endif
 
-#define RAM_SIZE 128
+#define RAM_SIZE 256
 
 #define PC_ADDRESS 1
 #define IR_ADDRESS 2 //instruction register address

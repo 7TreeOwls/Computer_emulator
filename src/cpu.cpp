@@ -39,8 +39,15 @@ void Cpu::decode()
     //0x00 00 00 XX - XX is read_address2
     int read_address2 = instruction & 0x000000FF;
 
-    read_data1 = pBUS->read(read_address1);
-    read_data2 = pBUS->read(read_address2);
+	if(control.load)
+	{
+		read_data1 = read_address1;
+	}else
+	{
+		read_data1 = pBUS->read(read_address1);
+	}
+	read_data2 = pBUS->read(read_address2);
+
     //0x00 00 00 XX - XX is constant/offset
     constant = instruction & 0x000000FF;
     // cout << "constant: " << std::hex << constant << "\n";
@@ -56,6 +63,8 @@ void Cpu::execute()
     ALU.update();
     //AND gate before MUX for setting the next PC value
     pc_control = control.branch && is_not_zero_alu;
+	//OR gate before MUX for setting the next PC value
+	pc_control = pc_control | control.jump;
     //MUX for setting the next PC value
 	// cout << "pc_control " << pc_control << "\n";
 	// cout << "pc_next " << pc_next << "\n";
@@ -68,14 +77,20 @@ void Cpu::mem_access()
     int address__to_write;
     int value_to_write;
     // cout << "accumulator_alu: " << std::hex << accumulator_alu << "\n";
-    if(control.store == false)//all instruction except sw - store word
-    {
-        address__to_write = write_address;
-        value_to_write = accumulator_alu;
-    }else //sw - store word
+
+
+    if(control.store == true) //sw - store word 
     {
         address__to_write = accumulator_alu;
         value_to_write = read_data1;
+    }else if(control.load == true) //lw load word
+	{
+		address__to_write = write_address;
+		value_to_write = pBUS->read(accumulator_alu);
+	}else//all instruction except sw - store word
+    {
+		address__to_write = write_address;
+        value_to_write = accumulator_alu;
     }
 	// cout << "accumulator_alu " << accumulator_alu << "\n";
 	// cout << "value_to_write " << accumulator_alu << "\n";

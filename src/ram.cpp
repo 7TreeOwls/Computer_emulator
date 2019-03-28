@@ -18,7 +18,7 @@ Ram::Ram()
         memory[i] = 0x00000000;
     }
     //clear file for DEBUG
-    if(DEBUG)
+    if(DEBUG == true)
     {
         logfile.open("log.txt", fstream::out | fstream::trunc);
         logfile  << "Memory log:\n\n";
@@ -30,12 +30,12 @@ Ram::Ram()
 
 int Ram::read(int address)
 {
-    if(DEBUG)
+    if(DEBUG == true)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
-		showbase(logfile);
-        logfile << clock_cycle << ": " 
-				<< "read " << std::hex << memory[address] 
+		// showbase(logfile);
+        logfile << std::dec << clock_cycle << ": ";
+		logfile << "read " << std::hex << memory[address] 
                 << " from " << std::hex << address << "\n";
         logfile.close();
 
@@ -45,12 +45,12 @@ int Ram::read(int address)
 
 void Ram::write(int address, int value)
 {
-    if(DEBUG)
+    if(DEBUG == true)
     {
         logfile.open("log.txt", fstream::app | fstream::out);
-		showbase(logfile);
-        logfile << clock_cycle << ": " 
-				<< "write " << std::hex << value 
+		// showbase(logfile);
+        logfile << std::dec << clock_cycle << ": ";
+		logfile << "write " << std::hex << value 
                 << " to " << std::hex << address << "\n";
         logfile.close();
 

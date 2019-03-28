@@ -2,4 +2,6 @@
 src/.vscode
 #ignore executables
 src/executables
+#ignore snapshot of console output
+src/console_output
 

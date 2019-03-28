@@ -1,9 +1,17 @@
 Memory log:
 
-0: write 0xf000000 to 0x4
-0: read 0x4 from 0x1
-0: read 0xf000000 from 0x4
-0: write 0xf000000 to 0x2
+0: write 32454400 to 4
+0: write f000000 to 5
+0: read 4 from 1
+0: read 32454400 from 4
+0: write 32454400 to 2
+0: read 0 from 44
 0: read 0 from 0
-0: read 0 from 0
-0: write 0x4 to 0x1
+0: write 0 to 45
+0: write 5 to 1
+1: read 5 from 1
+1: read f000000 from 5
+1: write f000000 to 2
+1: read 0 from 0
+1: read 0 from 0
+1: write 4 to 1

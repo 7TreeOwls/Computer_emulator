@@ -1,4 +1,7 @@
 #pragma once
+
+
+
 // CPU Opcodes and assembly instructions:
 //     R-type instructions:
 
@@ -12,8 +15,11 @@
 
 //     I-type instructions:
 
-#define CPU_LW 0x10 //(0b0001 0000) = lw <write_register> <offset>(<read_register>)
-#define CPU_SW 0x11 //(0b0001 0001) = sw <read_register> <offset>(<write_register>)
+#define CPU_LW 0x10 //(0b0001 0000) = lw <write_register> <offset from read_register2>(<read_register1>)
+#define CPU_LW 0x11 //(0b0001 0001) = lw <write_register> <offset>(<read_register>)
+
+#define CPU_LW 0x20 //(0b0010 0000) = sw <read_register1> <offset from read_register2>(<write_register>)
+#define CPU_SW 0x21 //(0b0010 0001) = sw <read_register> <offset>(<write_register>)
 
 #define CPU_ANDI 0x30 //(0b0011 0000) = andi <write_register> <read_register1> <constant>
 #define CPU_ORI 0x31 //(0b0011 0001) = ori <write_register> <read_register1> <constant>

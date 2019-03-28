@@ -8,6 +8,8 @@ public:
     bool ALU_constant;
     int ALU_opcode;
     bool branch;
+	bool jump;
+	bool load;
     bool store;
     bool stop = false;
     void updateSignals(int opcode);
