@@ -1,0 +1,60 @@
+0x32440002 #write first prime number, 2 to 0x44 (primes array pointer)
+0x21FF4401 #print first prime number, IO is at address 256 = 255+1
+
+0x32FF0000 #number of prime numbers found-1 (position in array of last prime found) = memory 0xFF
+
+0x32FC0001 #0xFC = 1
+
+0x32FB00FA #0xFB = 250
+0x34FBFB04 #0xFB = 1000
+
+0x32FD4400 #current candidate number to check = memory 0xFD
+
+#do while loop 1, while current number!=1000
+
+0x32FE0002 #current prime number to check = 0xFE; instruction: 0B
+0x32F80000 #offset (position in array) of current prime to check = 0xF8
+0x32FDFD01 #increase the candidate
+
+
+0x32FAFD00 #0xFA = 0xFD; instruction: 0E
+#do while loop 3, checks if current candidate is divisible by current prime number to check
+#"division"
+0x03FAFAFE #0xFA = 0xFA - 0xFE instruction: 0F
+0x05F9FAFE #0xF9 = 1 if(0xFA < 0xFE) - (continue substraction) else 0 - (stop substraction)
+0x510FF9FC #end of loop3, bne to instruction (0xFA = 0xFA - 0xFE), 0xF9 and 00
+
+#here 0xFA < 0xFE
+#if 0xFA  == 0 the candidate is not prime, jump to next one
+0x5116FA00 #0xFA!=0 continue with next prime, omit next 3 lines
+
+#check if current number is =>1000, if not go to loop 1
+0x05F7FDFB #0xF7 = 1 if(0xFD(current number) < 0xFB (1000)) else 0
+0x5120F7FC #current number == 1000 go to end, stop the program
+0x500B0000 #jump to start loop 1
+
+#check if there are more primes, if yes, check next prime, if not add to prime list
+
+0x511DF8FF #instruction: 14 ;bne current prime offset (0xF8) and max prime offset (0xFF), if equal omit next lines
+
+#no primes to check, increase position of last item in primes array, add candidate there
+0x32FFFF01 #0xFF = 0xFF + 1
+0x2044FDFF #store FD on position from 0xFF in primes array (0x44)
+0x21FFFD01 #print new prime
+
+0x05F7FDFB #0xF7 = 1 if(0xFD(current number) < 0xFB (1000)) else 0
+0x5120F7FC #current number == 1000 go to end, stop the program
+
+0x510BFDFB #no new primes go to loop 1, check new candidate while current number !=1000
+
+
+#there are more primes to check
+0x32F8F801 #current prime position ++, 0xF8 = 0xF8 + 1
+0x10FE44F8 #load next prime to check
+0x500E0000 #go to loop 3
+
+#end of loop 1
+
+
+
+

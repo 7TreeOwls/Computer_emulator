@@ -4,4 +4,5 @@ src/.vscode
 src/executables
 #ignore snapshot of console output
 src/console_output
+src/makefile
 

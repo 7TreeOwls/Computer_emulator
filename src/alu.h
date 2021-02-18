@@ -46,15 +46,6 @@ class Alu
         //updates output of Alu:
         void update();
 
-
-        //TODO redundant
-        int Control = 0b0000;
-        int Output = 0;
-        //updates ALU output:
-        int perform(int in1, int in2, int control, int *output=nullptr);
-        int perform(int in1, int in2, int *output=nullptr);
-        //when one of inputs has constant connection
-        int perform(int in, int *output=nullptr);
         
 };
 

@@ -12,11 +12,20 @@ using namespace std;
 //you can specify debug mode in "debug.h"
 
 
-int main()
+int main(int argc,char *argv[])
 {
-    // cout << "Specify a path to machine code:\n";
-    // string ml_filename;
-    // cin >> ml_filename;
+    string ml_filename;
+	if(argc == 1)
+	{
+		cout << "Specify a path to machine code:\n";
+		cin >> ml_filename;
+	}else
+	{
+		ml_filename = argv[1];
+	}
+
+	// cout << ml_filename << "\n";
+	
 
 	//Computer instantion
 	Computer COMP;
@@ -27,8 +36,8 @@ int main()
     int instr;
 
     fstream ml_file;
-    ml_file.open("machinecode.txt", fstream::in);
-    // ml_file >> hex;
+    // ml_file.open("machinecode.txt", fstream::in);
+	ml_file.open(ml_filename, fstream::in);
 
 	cout << hex;
 

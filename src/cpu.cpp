@@ -8,14 +8,16 @@ Cpu::Cpu(Bus *pointerBUS)
 {
     pBUS = pointerBUS;
     //signal connection to ALUs:
-    PC_ALU = Alu(&pc, &pc_increment_const, &pc_next, &pc_alu_opcode_const);
-    ALU = Alu(&in_alu1, &in_alu2, &accumulator_alu, &control.ALU_opcode, &is_not_zero_alu);
+    PC_ALU = Alu(&pc, &pc_increment_const, &pc_next, 
+				&pc_alu_opcode_const);
+    ALU = Alu(&in_alu1, &in_alu2, &accumulator_alu, 
+			&control.ALU_opcode, &is_not_zero_alu);
     
 }
 
 void Cpu::instruction_fetch()
 {
-    //TODO add incrementation of pc
+
     //fetching of instruction from PC to Instruction register
     pc = pBUS->read(PC_ADDRESS);
     instruction = pBUS->read(pc);

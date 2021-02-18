@@ -1,0 +1,9 @@
+
+
+
+0x32440000 #write 00 to memory 0x44
+0x32450064 #write 100 to memory 0x45 for comparison in a loop
+0x04804444 #multiply the memory 0x44 by itself and store in memory 0x80
+0x21FF8001 #print memory 0x80
+0x32444401 #increase memory 0x44 by 1
+0x51064445 #compare memory 0x44  and 0x45 (with value 100) and jump to line 3 (+3 as the first instruction is at address 4) if not equal
